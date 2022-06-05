@@ -46,7 +46,7 @@ app.post('/webhook', async (res, req) => {
     const inputText = request.request.nlu.tokens 
 
     if(inputText.contains(initString.slice(' '))) {
-        return req.send(sendResponse(`Спасибо что запустили меня! Доступные команды --- Команда "${command_name} Вездекод" -- Команда - "Опрос" `, res.body.session))
+        return req.send(sendResponse(`Спасибо что запустили меня! Доступные команды --- Команда "${comand} Вездекод" -- Команда - "Опрос" `, res.body.session))
     }
 
     if(inputText.contains(str) && inputText.includes(comand)) {
@@ -67,7 +67,7 @@ app.post('/webhook', async (res, req) => {
                 "Back End": 0 ,
                 "Маруся": 0
             }
-        }, `Начнём опрос! Все ответы отправляй только в формате \"Ответ [Номер варианта ответа]\"\n\nПервый вопрос:\n${questions[0].tts}`))
+        }, `Начнём опрос!Отправляй ответы : один,два,три\nПервый вопрос:\n${questions[0].tts}`))
     }
 
     if([ 'вариант', 'номер', '1', '2', '3', 'один', 'два', 'три', 'первый', 'второй', 'третий', 'первое', 'второе', 'третье'].includes(inputText[0])) {
@@ -98,7 +98,7 @@ app.post('/webhook', async (res, req) => {
         session_state.question++
         if(session_state.question == questions.length) {
             const result =correctScoreNames.join(', ');
-            console.log(result)
+            //console.log(result)
             return req.send(sendResponse(`Тест закончен! Вам подходят категории: ${result}`, res.body.session, {}, `${config.finishSound} Тест закончен! Вам подходят категории ^${result}^\n`, false, 
             ))
         }
